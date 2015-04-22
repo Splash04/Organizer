@@ -1,0 +1,26 @@
+PODS:
+  - ActionSheetPicker-3.0 (1.5.1)
+  - Fabric/Core (1.1.3)
+  - Fabric/Crashlytics (1.1.3):
+    - Fabric/Core
+  - MagicalRecord (2.2):
+    - MagicalRecord/Core (= 2.2)
+  - MagicalRecord/Core (2.2)
+  - MHNibLoading (0.1.0)
+  - UIView-Autolayout (0.2.1)
+
+DEPENDENCIES:
+  - ActionSheetPicker-3.0 (~> 1.5.1)
+  - Fabric/Crashlytics (~> 1.1.1)
+  - MagicalRecord
+  - MHNibLoading (~> 0.1.0)
+  - UIView-Autolayout (~> 0.2.0)
+
+SPEC CHECKSUMS:
+  ActionSheetPicker-3.0: de0f71e30495ed0192f7d16d0fddcab6882a0ca3
+  Fabric: d841cd1fddc5db360ce0723c786c4bfc1f4f3396
+  MagicalRecord: f8a56bb87ab6552f20c4bb8681a1958a197ea3cd
+  MHNibLoading: cc3690d6e372f8a4b75e36104979dc20d7b510d2
+  UIView-Autolayout: 042510c499403f58620998278ddd60fa7b6cd4a7
+
+COCOAPODS: 0.36.4

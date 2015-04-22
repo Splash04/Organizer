@@ -1,0 +1,91 @@
+syntax: glob
+
+# mac os
+.DS_Store
+
+#hg orig
+*.orig
+.hgeol
+
+# Backup files left behind by the Emacs editor.
+*~
+
+# Lock files used by the Emacs editor.
+.\#*
+
+# Temporary files used by the vim editor.
+.*.swp
+
+# build directories
+**/build/*
+build/*
+bin/*
+
+# android deploy folder
+deploy/
+
+# XCode user data
+**.pbxuser
+**.mode?v?
+**.perspectivev?
+xcshareddata
+*.xcshareddata
+xcuserdata
+*.xcuserdatad
+
+# documentation
+**.docset/*
+
+# Visual Studio stuff
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.class
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.scc
+*.sdf
+[Bb]in
+[Dd]ebug*/*
+obj/
+gen/
+[Rr]elease*/*
+_ReSharper*/
+[Tt]est[Rr]esult*
+[Bb]uild[Ll]og.*
+*.[Pp]ublish.xml
+mCommerceWeb/img/Thumbs.db
+mCommerceWeb/.idea/workspace.xml
+Injection/.idea/workspace.xml
+iPhonemCommerce/\.DS_Store
+local.properties
+
+# IDEA
+.idea
+*.iml
+out/*
+
+# grunt
+build.zip
+.ftppass
+node_modules/
+
+# gradle
+.gradle
+
+# CocoaPods
+Pods/
