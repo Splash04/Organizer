@@ -117,4 +117,16 @@
     [[self sharedInstance] deleteEvent:event];
 }
 
++ (NSDate *)useSameTimeAsDate:(NSDate *)priorDate butOnADifferentDate:(NSDate *)differentDate
+{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents  *priorComponents = [cal components:NSWeekdayCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:priorDate];
+    NSDateComponents *newComponents = [cal components:NSWeekdayCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:differentDate];
+    [newComponents setSecond:[priorComponents second]];
+    [newComponents setMinute:[priorComponents minute]];
+    [newComponents setHour:[priorComponents hour]];
+    
+    return [cal dateFromComponents:newComponents];
+}
+
 @end

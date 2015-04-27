@@ -30,17 +30,19 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-//    unsigned int flags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
-//    NSCalendar* calendar = [NSCalendar currentCalendar];
-//    NSDateComponents* components = [calendar components:flags fromDate:self.pageDate];
-//   // NSDate* dateOnly = [calendar dateFromComponents:components];
-//    
-//    NSDate* dateOnly = [[calendar dateFromComponents:components] dateByAddingTimeInterval:[[NSTimeZone localTimeZone]secondsFromGMT]];
-    
+    [self updateDates];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)updateDates
+{
     NSDateComponents *components = [[NSCalendar currentCalendar]
                                     components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit
-                                    fromDate:[NSDate date]];
+                                    fromDate:self.pageDate];
     NSDate *startDate = [[NSCalendar currentCalendar]
                          dateFromComponents:components];
     NSTimeInterval secondsInOneHours = 1 * 60 * 60;
@@ -51,14 +53,25 @@
         NSDate *dateAfter = [startDate dateByAddingTimeInterval:(secondsInOneHours * index)];
         [self.timesArray addObject:dateAfter];
     }
+    NSDate *endDate = [startDate dateByAddingTimeInterval:(secondsInOneHours * kHoursPerDay)];
     
-    NSPredicate *stalePredicate = [NSPredicate predicateWithFormat:@"date < %@", self.pageDate];
-    NSArray *staleObjects = [Event MR_findAllWithPredicate:stalePredicate];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    // NSPredicate *stalePredicate = [NSPredicate predicateWithFormat:@"date < %@", self.pageDate];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(date >= %@) AND (date <= %@)", startDate, endDate];
+    NSArray *staleObjects = [Event MR_findAllWithPredicate:predicate];
+    for (NSInteger index = 0; index < self.timesArray.count; ++index) {
+        startDate = self.timesArray[index];
+        endDate = [startDate dateByAddingTimeInterval:secondsInOneHours];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(self.date >= %@) AND (self.date <= %@)", startDate, endDate];
+        NSArray *filteredArray = [staleObjects filteredArrayUsingPredicate:predicate];
+        if([filteredArray count] > 0) {
+            [self.timesArray removeObjectAtIndex:index];
+            for(NSInteger addedObjectIndex = 0; addedObjectIndex < filteredArray.count; addedObjectIndex++) {
+                [self.timesArray insertObject:filteredArray[addedObjectIndex] atIndex:(index + addedObjectIndex)];
+            }
+            index += filteredArray.count - 1;
+        }
+    }
+    [self.tableView reloadData];
 }
 
 #pragma mark – <UITableViewDataSource>
@@ -69,8 +82,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ISTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ISTimeTableViewCell cellIdentifier]];
-    
-    cell.date = self.timesArray[indexPath.item];
+    NSObject *item = self.timesArray[indexPath.item];
+    if([item isKindOfClass:[NSDate class]]) {
+        cell.date = (NSDate *)item;
+    } else if([item isKindOfClass:[Event class]]) {
+        cell.event = (Event *)item;
+    }
     //cell.timeLabel.text = [ISDataManager timeFromDate:self.timesArray[indexPath.item]];
     //[NSString stringWithFormat:@"%ld:00", (long)indexPath.item];
     return cell;

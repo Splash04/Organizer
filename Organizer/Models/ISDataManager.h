@@ -34,5 +34,6 @@
 + (Event *)createNewEvent;
 + (void)saveToDataBaseWithCompletion:(MRSaveCompletionHandler)completion;
 + (void)deleteEvent:(Event *)event;
++ (NSDate *)useSameTimeAsDate:(NSDate *)priorDate butOnADifferentDate:(NSDate *)differentDate;
 
 @end

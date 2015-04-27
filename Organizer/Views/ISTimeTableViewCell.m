@@ -38,7 +38,6 @@
     if(_event == nil) {
         self.event = [ISDataManager createNewEvent];
         self.event.date = self.date;
-        self.event.alertDate = self.date;
     }
     self.event.note = textField.text;
 }
@@ -48,6 +47,7 @@
     self.noteLabel.text = _event.note;
     self.noteTextField.text = _event.note;
     self.stateButton.selected = [_event.completed boolValue];
+    self.date = self.event.date;
 }
 
 #pragma mark – Setters & Getters
@@ -123,6 +123,7 @@
         {
             BOOL newIconState = !self.timeIconView.selected;
             [self.timeIconView setSelected: newIconState];
+            [self showTimeCalendarPicker];
         }
             break;
         default:
@@ -133,15 +134,35 @@
 
 - (void)showCalendarPicker
 {
-    [ActionSheetDatePicker showPickerWithTitle:@"Select a Color"
+    [ActionSheetDatePicker showPickerWithTitle:@"Select date"
                                 datePickerMode:UIDatePickerModeDate
                                   selectedDate:self.date
                                      doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+                                         self.date = [ISDataManager useSameTimeAsDate:self.date butOnADifferentDate:selectedDate];
                                          NSLog(@"Picker: %@", picker);
                                          NSLog(@"Selected date: %@", selectedDate);
                                          NSLog(@"Selected origin: %@", origin);
+                                         [self.calendarIconView setSelected:NO];
                                      } cancelBlock:^(ActionSheetDatePicker *picker) {
                                           NSLog(@"Block Picker Canceled");
+                                         [self.calendarIconView setSelected:NO];
+                                     } origin:self];
+}
+
+- (void)showTimeCalendarPicker
+{
+    [ActionSheetDatePicker showPickerWithTitle:@"Select time"
+                                datePickerMode:UIDatePickerModeTime
+                                  selectedDate:self.date
+                                     doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+                                         self.date = [ISDataManager useSameTimeAsDate:selectedDate butOnADifferentDate:self.date];
+                                         NSLog(@"Picker: %@", picker);
+                                         NSLog(@"Selected date: %@", selectedDate);
+                                         NSLog(@"Selected origin: %@", origin);
+                                         [self.timeIconView setSelected:NO];
+                                     } cancelBlock:^(ActionSheetDatePicker *picker) {
+                                         NSLog(@"Block Picker Canceled");
+                                         [self.timeIconView setSelected:NO];
                                      } origin:self];
 }
 

@@ -23,7 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //self.pagesBar.titlesArray = @[@"monday", @"tuesday", @"wednesday", @"thursday", @"friday"];
     self.pagesBar.scrollDelegate = self;
     [self.pagesBar reloadData];
     

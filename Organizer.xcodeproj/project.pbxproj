@@ -374,7 +374,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "releaseConfig=\"Release\"\n\nif [ \"$releaseConfig\" = \"${CONFIGURATION}\" ]; then\necho \"Running Crashlytics\"\n\"${SRCROOT}/Pods/Fabric/Fabric.framework/run\" 5e95daeac332432eff64e05686ab7f525e33ac5d 9b590fd068b1d921110911ab9e78ff8761ff8cf9c28f1bb850e0af39e67fa1ee\nfi";
+			shellScript = "./Fabric.framework/run 5e95daeac332432eff64e05686ab7f525e33ac5d 9b590fd068b1d921110911ab9e78ff8761ff8cf9c28f1bb850e0af39e67fa1ee";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -472,7 +472,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -509,7 +509,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -526,7 +526,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Organizer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -542,9 +542,10 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Organizer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "ad437137-512f-4053-bb0a-84b8dd6a86bc";
 			};
 			name = Release;
 		};
